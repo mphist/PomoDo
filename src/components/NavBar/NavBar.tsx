@@ -4,9 +4,9 @@ export type NavBarProps = {}
 
 function NavBar({}: NavBarProps) {
   return (
-    <div className=''>
+    <header className=''>
       <Logo />
-    </div>
+    </header>
   )
 }
 
