@@ -17,11 +17,12 @@
 .light {
   /* --color-bg-primary: #ade8ff; */
   --color-bg-primary: #96c7c1;
-  --color-bg-secondary: #edf2f7;
+  --color-bg-secondary: #fef5ed;
   --color-text-primary: #2d3748;
   --color-text-secondary: #4a5568;
   --color-text-accent: #2b6cb0;
   --color-text-tomato: rgb(252, 130, 109);
+  --color-text-ivory: #fef5ed;
   --color-border-tomato: rgb(252, 130, 109);
 }
 .dark {

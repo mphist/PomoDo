@@ -34,6 +34,7 @@ module.exports = {
         primary: 'var(--color-text-primary)',
         secondary: 'var(--color-text-secondary)',
         tomato: 'var(--color-text-tomato)',
+        ivory: 'var(--color-text-ivory)',
       },
       borderColor: {
         tomato: 'var(--color-text-tomato)',

@@ -14,7 +14,7 @@ function Layout({ children }: LayoutProps) {
 
 Layout.Header = ({ children }: LayoutHeaderProps) => <div>{children}</div>
 Layout.Main = ({ children }: LayoutMainProps) => (
-  <main className='w-full'>{children}</main>
+  <main className='w-full bg-secondary'>{children}</main>
 )
 Layout.Aside = ({ children }: LayoutAsideProps) => (
   <aside className='bg-primary w-28 flex flex-col items-center h-screen'>
