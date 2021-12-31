@@ -3,6 +3,7 @@ module.exports = {
   theme: {
     fontFamily: {
       logo: ['"Concert One"', 'cursive'],
+      timer: ['Rubik', 'sans-serif'],
     },
     screens: {
       sm: '480px',
