@@ -9,13 +9,15 @@ type LayoutMainProps = LayoutProps
 type LayoutAsideProps = LayoutProps
 
 function Layout({ children }: LayoutProps) {
-  return <div>{children}</div>
+  return <div className='flex'>{children}</div>
 }
 
 Layout.Header = ({ children }: LayoutHeaderProps) => <div>{children}</div>
-Layout.Main = ({ children }: LayoutMainProps) => <div>{children}</div>
+Layout.Main = ({ children }: LayoutMainProps) => (
+  <main className='w-full'>{children}</main>
+)
 Layout.Aside = ({ children }: LayoutAsideProps) => (
-  <aside className='bg-primary w-24 flex flex-col items-center h-screen'>
+  <aside className='bg-primary w-28 flex flex-col items-center h-screen'>
     {children}
   </aside>
 )

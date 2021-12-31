@@ -34,6 +34,9 @@ module.exports = {
         secondary: 'var(--color-text-secondary)',
         tomato: 'var(--color-text-tomato)',
       },
+      borderColor: {
+        tomato: 'var(--color-text-tomato)',
+      },
     },
   },
   plugins: [],
