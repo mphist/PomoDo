@@ -27,7 +27,8 @@ module.exports = {
       backgroundColor: {
         primary: 'var(--color-bg-primary)',
         secondary: 'var(--color-bg-secondary)',
-        tomato: 'var(--color-text-tomato)',
+        tomato: 'var(--color-bg-tomato)',
+        newTask: 'var(--color-bg-newTask)',
       },
       textColor: {
         accent: 'var(--color-text-accent)',
