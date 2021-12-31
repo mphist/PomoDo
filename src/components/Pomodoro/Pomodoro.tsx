@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import LinearBar from '../LinearBar/LinearBar'
-import Timer from '../Timer/Timer'
+import Display from '../Display/Display'
+import Controller from '../Controller/Controller'
 
 export type PomodoroProps = {}
 
@@ -30,7 +31,8 @@ function Pomodoro({}: PomodoroProps) {
         minutes={minutes}
         viewPortX={viewPortX}
       />
-      <Timer timeRemaining={timeRemaining} />
+      <Display timeRemaining={timeRemaining} />
+      <Controller />
     </div>
   )
 }
