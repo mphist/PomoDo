@@ -9,12 +9,12 @@ export type BodyProps = {}
 
 function Body({}: BodyProps) {
   const { toggleCreate } = useContext(TaskContext)
-  console.log(toggleCreate)
   return (
     <div className='h-full flex flex-col'>
       <ControllerProvider>
-        {!toggleCreate && <Welcome />}
-        {toggleCreate && <CreateTask />}
+        {/* {!toggleCreate && <Welcome />} */}
+        <Welcome />
+        <CreateTask />
         {/* <Pomodoro /> */}
       </ControllerProvider>
     </div>

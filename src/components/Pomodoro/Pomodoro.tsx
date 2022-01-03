@@ -18,7 +18,6 @@ function Pomodoro({}: PomodoroProps) {
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>()
 
   useEffect(() => {
-    console.log(timeRemaining, activeTimer)
     if (activeTimer && timeElapsed < timer * 60 - 1) {
       const id = setTimeout(() => {
         setTimeRemaining((time) => time - 1)
