@@ -2,20 +2,19 @@ import { useContext } from 'react'
 import { ControllerProvider } from '../../contexts/ControllerContext'
 import { TaskContext } from '../../contexts/TaskContext'
 import CreateTask from '../CreateTask/CreateTask'
-import Pomodoro from '../Pomodoro/Pomodoro'
+import TaskView from '../TaskView/TaskView'
 import Welcome from '../Welcome/Welcome'
 
 export type BodyProps = {}
 
 function Body({}: BodyProps) {
-  const { toggleCreate } = useContext(TaskContext)
+  const { toggleCreate, toggleTaskView, taskId } = useContext(TaskContext)
   return (
     <div className='h-full flex flex-col'>
       <ControllerProvider>
-        {/* {!toggleCreate && <Welcome />} */}
         <Welcome />
         <CreateTask />
-        {/* <Pomodoro /> */}
+        <TaskView taskId={taskId} />
       </ControllerProvider>
     </div>
   )

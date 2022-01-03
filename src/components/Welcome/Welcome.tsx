@@ -4,8 +4,8 @@ import { TaskContext } from '../../contexts/TaskContext'
 export type WelcomeProps = {}
 
 function Welcome({}: WelcomeProps) {
-  const { toggleCreate } = useContext(TaskContext)
-  if (toggleCreate) {
+  const { toggleCreate, toggleTaskView } = useContext(TaskContext)
+  if (toggleCreate || toggleTaskView) {
     return <div className='opacity-0'></div>
   }
   return (

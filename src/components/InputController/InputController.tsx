@@ -17,10 +17,6 @@ function InputController({
   props: { taskId, className, style, placeholder, onKeyDownFunc, buttonClick },
 }: InputControllerProps) {
   const [inputTaskName, setInputTaskName] = useState('')
-  const [subtaskId, setSubtaskId] = useState('')
-  const [displayTaskName, setDisplayTaskName] = useState('')
-  const [subtaskName, setSubtaskName] = useState('')
-  const [toggleList, setToggleList] = useState(false)
   const [uniqueId, setUniqueId] = useState('')
   const { toggleCreate, task, setTask } = useContext(TaskContext)
   const ref = useRef<HTMLInputElement>(null)
@@ -29,20 +25,6 @@ function InputController({
     setInputTaskName(e.target.value)
   }
 
-  const handleToggleList = () => {
-    //saving the task here
-    const el = document.querySelector('.taskList') as HTMLElement
-    if (el) {
-      // el.className = 'taskList visible'
-      el.style.opacity = '1'
-    }
-    setTask!({
-      ...task,
-      [taskId]: { name: inputTaskName, subtask: { [subtaskId]: subtaskName } },
-    })
-    setToggleList(true)
-    setDisplayTaskName(inputTaskName)
-  }
   useEffect(() => {
     const div = document.querySelector('.subtaskNameInput') as HTMLElement
     if (div) {

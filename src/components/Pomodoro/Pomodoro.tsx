@@ -4,12 +4,17 @@ import Display from '../Display/Display'
 import Controller from '../Controller/Controller'
 import { ControllerContext } from '../../contexts/ControllerContext'
 import TimerButton from '../TimerButton/TimerButton'
+import { TaskContext } from '../../contexts/TaskContext'
 
-export type PomodoroProps = {}
+export type PomodoroProps = {
+  id: string
+}
 
-function Pomodoro({}: PomodoroProps) {
-  const { controller } = useContext(ControllerContext)
-  const timer = controller![''].timer
+function Pomodoro({ id }: PomodoroProps) {
+  // const { controller } = useContext(ControllerContext)
+  // const timer = controller!['focus'].timer
+  const { storage } = useContext(TaskContext)
+  const timer = storage![id].timer.time
   const [timeRemaining, setTimeRemaining] = useState(timer * 60) // in seconds
   const [timeElapsed, setTimeElapsed] = useState(0) // in seconds
   const minutes = timer * 60

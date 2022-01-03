@@ -6,11 +6,13 @@ export type TaskButtonProps = {
 }
 
 function TaskButton({ name }: TaskButtonProps) {
-  const { toggleCreate, setToggleCreate } = useContext(TaskContext)
+  const { toggleCreate, setToggleCreate, setToggleTaskView } =
+    useContext(TaskContext)
 
   const handleClick = () => {
     if (name === 'New Task') {
       setToggleCreate!(true)
+      setToggleTaskView!(false)
     }
   }
 

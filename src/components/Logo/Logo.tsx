@@ -4,11 +4,15 @@ import { TaskContext } from '../../contexts/TaskContext'
 export type LogoProps = {}
 
 function Logo({}: LogoProps) {
-  const { setToggleCreate } = useContext(TaskContext)
+  const { setToggleCreate, setToggleTaskView } = useContext(TaskContext)
+  const handleLogoClick = () => {
+    setToggleCreate!(false)
+    setToggleTaskView!(false)
+  }
   return (
     <div
       className='text-2xl font-logo text-ivory mt-2 tracking-wide cursor-pointer'
-      onClick={() => setToggleCreate!(false)}
+      onClick={handleLogoClick}
     >
       PomoDo
     </div>

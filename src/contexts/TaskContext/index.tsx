@@ -16,23 +16,58 @@ export type TaskContextType = {
     subtask: {
       [id: string]: string
     } | null
+    timer: {
+      mode: string
+      time: number
+    }
   }
 }
 
 export const TaskContext = createContext<
-  { task: TaskContextType | null } & {
+  { storage: TaskContextType | null } & {
+    setStorage: Dispatch<SetStateAction<TaskContextType>> | null
+  } & { task: TaskContextType | null } & {
     setTask: Dispatch<SetStateAction<TaskContextType>> | null
   } & { toggleCreate: boolean } & {
     setToggleCreate: Dispatch<SetStateAction<boolean>> | null
+  } & { toggleTaskView: boolean } & {
+    setToggleTaskView: Dispatch<SetStateAction<boolean>> | null
+  } & { taskId: string } & {
+    setTaskId: Dispatch<SetStateAction<string>> | null
   }
->({ task: null, setTask: null, toggleCreate: false, setToggleCreate: null })
+>({
+  storage: null,
+  setStorage: null,
+  task: null,
+  setTask: null,
+  toggleCreate: false,
+  setToggleCreate: null,
+  toggleTaskView: false,
+  setToggleTaskView: null,
+  taskId: '',
+  setTaskId: null,
+})
 
 export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
   const [task, setTask] = useState({})
+  const [storage, setStorage] = useState({})
   const [toggleCreate, setToggleCreate] = useState(false)
+  const [toggleTaskView, setToggleTaskView] = useState(false)
+  const [taskId, setTaskId] = useState('')
   return (
     <TaskContext.Provider
-      value={{ task, setTask, toggleCreate, setToggleCreate }}
+      value={{
+        storage,
+        setStorage,
+        task,
+        setTask,
+        toggleCreate,
+        setToggleCreate,
+        toggleTaskView,
+        setToggleTaskView,
+        taskId,
+        setTaskId,
+      }}
     >
       {children}
     </TaskContext.Provider>

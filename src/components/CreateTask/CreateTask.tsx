@@ -8,7 +8,16 @@ export type CreateTaskProps = {}
 
 function CreateTask({}: CreateTaskProps) {
   const [toggleList, setToggleList] = useState(false)
-  const { toggleCreate, task, setTask } = useContext(TaskContext)
+  const {
+    toggleCreate,
+    setToggleCreate,
+    task,
+    setTask,
+    storage,
+    setStorage,
+    setToggleTaskView,
+    setTaskId,
+  } = useContext(TaskContext)
   const ref = useRef<HTMLInputElement>(null)
   const [uniqueId, setUniqueId] = useState('')
   const [subtaskId, setSubtaskId] = useState('')
@@ -48,9 +57,17 @@ function CreateTask({}: CreateTaskProps) {
       [uniqueId]: {
         name: inputTaskName,
         subtask: { ...task?.[uniqueId]?.subtask } || null,
+        timer: { mode: 'focus', time: 25 },
       },
     })
     setToggleList(true)
+  }
+
+  const handleCreateClick = () => {
+    setStorage!({ ...task })
+    setToggleCreate!(false)
+    setToggleTaskView!(true)
+    setTaskId!(uniqueId)
   }
 
   const handleCreateSubtask = (subtaskName: string) => {
@@ -114,7 +131,10 @@ function CreateTask({}: CreateTaskProps) {
         </h2>
         <SubtaskList subtasks={task?.[uniqueId]?.subtask} />
       </section>
-      <button className='button-style createBtn opacity-0 transition-effect flex mx-auto'>
+      <button
+        className='button-style createBtn opacity-0 transition-effect flex mx-auto'
+        onClick={handleCreateClick}
+      >
         Create
       </button>
     </div>
