@@ -35,9 +35,12 @@ function SubtaskList({ subtasks }: SubtaskListProps) {
       <ul>
         {subtasks &&
           Object.entries(subtasks).map((subtask, key) => (
-            <li className='w-72 subtaskItem opacity-0 transition-effect my-2 bg-primary rounded-md text-white p-2 mx-auto '>
+            <li
+              key={key}
+              className='w-72 subtaskItem opacity-0 transition-effect my-2 bg-primary rounded-md text-white p-2 mx-auto '
+            >
               {subtasks && (
-                <div key={key} className='p-1 flex break-all'>
+                <div className='p-1 flex break-all'>
                   {/* <input
                     className='form-checkbox w-6 h-6 mr-2 rounded-sm focus:ring-0 checked:bg-tomato checked:text-tomato'
                     id='substask'

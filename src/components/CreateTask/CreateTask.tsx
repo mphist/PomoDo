@@ -25,6 +25,14 @@ function CreateTask({}: CreateTaskProps) {
     }
   }, [toggleCreate, setUniqueId])
 
+  useEffect(() => {
+    const btn = document.querySelector('.createBtn') as HTMLElement
+    if (btn) {
+      btn.style.opacity = '1'
+      setToggleList(false)
+    }
+  }, [toggleList])
+
   if (!toggleCreate) {
     return <div className='opacity-0'></div>
   }
@@ -106,7 +114,9 @@ function CreateTask({}: CreateTaskProps) {
         </h2>
         <SubtaskList subtasks={task?.[uniqueId]?.subtask} />
       </section>
-      <button className='button-style flex mx-auto'>Create</button>
+      <button className='button-style createBtn opacity-0 transition-effect flex mx-auto'>
+        Create
+      </button>
     </div>
   )
 }
