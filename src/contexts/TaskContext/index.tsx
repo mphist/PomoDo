@@ -13,6 +13,9 @@ type TaskContextProviderProps = {
 export type TaskContextType = {
   [id: string]: {
     name: string
+    subtask: {
+      [id: string]: string
+    } | null
   }
 }
 

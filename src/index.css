@@ -14,6 +14,24 @@
   }
 }
 
+@layer components {
+  .button-style {
+    background: var(--color-bg-burgundy);
+    color: white;
+    padding: 0.5rem;
+    letter-spacing: 0.025em;
+    font-weight: 700;
+    border-radius: 6px;
+  }
+  .button-style:hover {
+    filter: brightness(0.95);
+  }
+
+  .transition-effect {
+    transition: opacity 500ms ease-in-out;
+  }
+}
+
 .light {
   /* --color-bg-primary: #ade8ff; */
   --color-bg-primary: #96c7c1;
