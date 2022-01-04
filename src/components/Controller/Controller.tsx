@@ -1,13 +1,15 @@
 import ControllerButton from '../ControllerButton/ControllerButton'
 
-export type ControllerProps = {}
+export type ControllerProps = {
+  taskId: string
+}
 
-export default function Controller({}: ControllerProps) {
+export default function Controller({ taskId }: ControllerProps) {
   return (
     <div className='mt-16 w-[400px] flex justify-between'>
-      <ControllerButton name='Focus' timer={25} />
-      <ControllerButton name='Short Break' timer={5} />
-      <ControllerButton name='Long Break' timer={10} />
+      <ControllerButton name='Focus' time={25} id={taskId} />
+      <ControllerButton name='Short Break' time={5} id={taskId} />
+      <ControllerButton name='Long Break' time={10} id={taskId} />
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import LinearBar from '../LinearBar/LinearBar'
 import Display from '../Display/Display'
 import Controller from '../Controller/Controller'
@@ -36,15 +36,25 @@ function Pomodoro({ id }: PomodoroProps) {
     })
   }, [timeRemaining, setTimeRemaining, activeTimer])
 
+  const resetTime = useCallback(() => {
+    setActiveTimer(false)
+    setTimeRemaining(timer * 60)
+    setTimeElapsed(0)
+  }, [timer])
+
   useEffect(() => {
-    if (activeTimer) {
-      const pause = window.confirm('Do you wanna pause?')
-      if (pause) {
-        setTimeRemaining(timer * 60)
-        setActiveTimer(true)
-      }
-    }
-  }, [timer, setTimeRemaining, setActiveTimer])
+    resetTime()
+  }, [storage, resetTime])
+
+  // useEffect(() => {
+  //   if (activeTimer) {
+  //     const pause = window.confirm('Do you wanna pause?')
+  //     if (pause) {
+  //       setTimeRemaining(timer * 60)
+  //       setActiveTimer(true)
+  //     }
+  //   }
+  // }, [timer, setTimeRemaining, setActiveTimer])
 
   return (
     <div className='mt-20 flex flex-col items-center'>
@@ -54,8 +64,12 @@ function Pomodoro({ id }: PomodoroProps) {
         viewPortX={viewPortX}
       />
       <Display timeRemaining={timeRemaining} />
-      <TimerButton activeTimer={activeTimer} setActiveTimer={setActiveTimer} />
-      <Controller />
+      <TimerButton
+        activeTimer={activeTimer}
+        setActiveTimer={setActiveTimer}
+        resetTime={resetTime}
+      />
+      <Controller taskId={id} />
     </div>
   )
 }
