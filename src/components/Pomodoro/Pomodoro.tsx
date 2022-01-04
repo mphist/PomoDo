@@ -26,7 +26,7 @@ function Pomodoro({ id }: PomodoroProps) {
         const timeId = setTimeout(() => {
           setTimeRemaining((time) => time - 1)
           setTimeElapsed((timeElapsed) => timeElapsed + 1)
-        }, 10)
+        }, 1000)
         setTimeoutId(timeId)
       } else if (!done) {
         setDone(true)
