@@ -23,7 +23,7 @@ function TaskDisplay({ id }: TaskDisplayProps) {
               >
                 <div className='flex break-all'>
                   <input
-                    className='form-checkbox w-6 h-6 mr-2 rounded-sm focus:ring-0 checked:bg-tomato checked:text-tomato'
+                    className='form-checkbox w-6 h-6 mr-2 rounded-sm border-0 focus:ring-0 focus:outline-none focus:ring-offset-0 checked:bg-tomato checked:text-tomato'
                     id='substask'
                     name='subtask'
                     type='checkbox'
