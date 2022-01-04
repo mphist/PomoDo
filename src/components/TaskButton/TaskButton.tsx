@@ -2,17 +2,22 @@ import { useContext } from 'react'
 import { TaskContext } from '../../contexts/TaskContext'
 
 export type TaskButtonProps = {
+  id?: string
   name: string
 }
 
-function TaskButton({ name }: TaskButtonProps) {
-  const { toggleCreate, setToggleCreate, setToggleTaskView } =
+function TaskButton({ id, name }: TaskButtonProps) {
+  const { toggleCreate, setToggleCreate, setToggleTaskView, setTaskId } =
     useContext(TaskContext)
 
   const handleClick = () => {
     if (name === 'New Task') {
       setToggleCreate!(true)
       setToggleTaskView!(false)
+    } else {
+      setToggleCreate!(false)
+      setToggleTaskView!(true)
+      setTaskId!(id!)
     }
   }
 

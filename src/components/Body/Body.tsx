@@ -8,7 +8,7 @@ import Welcome from '../Welcome/Welcome'
 export type BodyProps = {}
 
 function Body({}: BodyProps) {
-  const { toggleCreate, toggleTaskView, taskId } = useContext(TaskContext)
+  const { taskId } = useContext(TaskContext)
   return (
     <div className='h-full flex flex-col'>
       <ControllerProvider>
