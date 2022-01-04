@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react'
 import { TaskContext } from '../../contexts/TaskContext'
 import Pomodoro from '../Pomodoro/Pomodoro'
+import TaskDisplay from '../TaskDisplay/TaskDisplay'
 
 export type TaskViewProps = {
   taskId: string
@@ -18,6 +19,7 @@ function TaskView({ taskId }: TaskViewProps) {
   return (
     <div className='opacity-0 taskView transition-effect'>
       <Pomodoro id={taskId} />
+      <TaskDisplay id={taskId} />
     </div>
   )
 }

@@ -39,24 +39,15 @@ function SubtaskList({ subtasks }: SubtaskListProps) {
               key={key}
               className='w-72 subtaskItem opacity-0 transition-effect my-2 bg-primary rounded-md text-white p-2 mx-auto '
             >
-              {subtasks && (
-                <div className='flex break-all'>
-                  {/* <input
-                    className='form-checkbox w-6 h-6 mr-2 rounded-sm focus:ring-0 checked:bg-tomato checked:text-tomato'
-                    id='substask'
-                    name='subtask'
-                    type='checkbox'
-                    value='hi'
-                  /> */}
-                  <FontAwesomeIcon
-                    id={subtask[0]}
-                    icon={faTrashAlt}
-                    className='cursor-pointer my-1'
-                    onClick={deleteSubtask}
-                  />
-                  <span className='ml-2'>{subtask[1]}</span>
-                </div>
-              )}
+              <div className='flex break-all'>
+                <FontAwesomeIcon
+                  id={subtask[0]}
+                  icon={faTrashAlt}
+                  className='cursor-pointer my-1'
+                  onClick={deleteSubtask}
+                />
+                <span className='ml-2'>{subtask[1]}</span>
+              </div>
             </li>
           ))}
       </ul>
