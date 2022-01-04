@@ -14,7 +14,6 @@ function LinearBar({ timeElapsed, minutes, viewPortX }: LinearBarProps) {
         width={Number(
           ((timeElapsed * responsiveWidth(viewPortX)) / minutes).toFixed(2)
         )}
-        viewPortX={viewPortX}
       />
     </div>
   )

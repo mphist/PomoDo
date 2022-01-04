@@ -13,7 +13,7 @@ function Timer({ timeRemaining }: TimerProps) {
   }, [time, setTime, timeRemaining])
 
   return (
-    <div className='mt-10 w-20 text-center text-tomato text-3xl tracking-wider font-timer'>
+    <div className='mt-10 w-22 text-center text-tomato text-3xl tracking-wider font-timer'>
       {time}
     </div>
   )

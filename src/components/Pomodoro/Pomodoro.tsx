@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react'
 import LinearBar from '../LinearBar/LinearBar'
 import Display from '../Display/Display'
 import Controller from '../Controller/Controller'
-import { ControllerContext } from '../../contexts/ControllerContext'
 import TimerButton from '../TimerButton/TimerButton'
 import { TaskContext } from '../../contexts/TaskContext'
 
@@ -11,8 +10,6 @@ export type PomodoroProps = {
 }
 
 function Pomodoro({ id }: PomodoroProps) {
-  // const { controller } = useContext(ControllerContext)
-  // const timer = controller!['focus'].timer
   const { storage } = useContext(TaskContext)
   const timer = storage![id].timer.time
   const [timeRemaining, setTimeRemaining] = useState(timer * 60) // in seconds
@@ -27,7 +24,7 @@ function Pomodoro({ id }: PomodoroProps) {
       const id = setTimeout(() => {
         setTimeRemaining((time) => time - 1)
         setTimeElapsed((timeElapsed) => timeElapsed + 1)
-      }, 1000)
+      }, 10)
       setTimeoutId(id)
     } else {
       clearTimeout(timeoutId!)
