@@ -7,7 +7,7 @@ export type TaskButtonProps = {
 }
 
 function TaskButton({ id, name }: TaskButtonProps) {
-  const { toggleCreate, setToggleCreate, setToggleTaskView, setTaskId } =
+  const { setToggleCreate, setToggleTaskView, setTaskId, storage, setStorage } =
     useContext(TaskContext)
 
   const handleClick = () => {
@@ -19,6 +19,18 @@ function TaskButton({ id, name }: TaskButtonProps) {
       setToggleTaskView!(true)
       setTaskId!(id!)
     }
+    // if (id) {
+    //   setStorage!({
+    //     ...storage,
+    //     [id]: {
+    //       ...storage![id],
+    //       timer: {
+    //         ...storage![id].timer,
+    //         savedTime: remainingTime
+    //       }
+    //     },
+    //   })
+    // }
   }
 
   return (

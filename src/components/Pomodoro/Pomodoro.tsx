@@ -23,11 +23,11 @@ function Pomodoro({ id }: PomodoroProps) {
   useEffect(() => {
     if (activeTimer) {
       if (timeElapsed < timer * 60 - 1) {
-        const id = setTimeout(() => {
+        const timeId = setTimeout(() => {
           setTimeRemaining((time) => time - 1)
           setTimeElapsed((timeElapsed) => timeElapsed + 1)
         }, 10)
-        setTimeoutId(id)
+        setTimeoutId(timeId)
       } else if (!done) {
         setDone(true)
       }
