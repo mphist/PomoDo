@@ -18,14 +18,19 @@ function Pomodoro({ id }: PomodoroProps) {
   const [viewPortX, setViewPortX] = useState(window.innerWidth)
   const [activeTimer, setActiveTimer] = useState(false)
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>()
+  const [done, setDone] = useState(false)
 
   useEffect(() => {
-    if (activeTimer && timeElapsed < timer * 60 - 1) {
-      const id = setTimeout(() => {
-        setTimeRemaining((time) => time - 1)
-        setTimeElapsed((timeElapsed) => timeElapsed + 1)
-      }, 10)
-      setTimeoutId(id)
+    if (activeTimer) {
+      if (timeElapsed < timer * 60 - 1) {
+        const id = setTimeout(() => {
+          setTimeRemaining((time) => time - 1)
+          setTimeElapsed((timeElapsed) => timeElapsed + 1)
+        }, 10)
+        setTimeoutId(id)
+      } else if (!done) {
+        setDone(true)
+      }
     } else {
       clearTimeout(timeoutId!)
     }
@@ -46,16 +51,6 @@ function Pomodoro({ id }: PomodoroProps) {
     resetTime()
   }, [storage, resetTime])
 
-  // useEffect(() => {
-  //   if (activeTimer) {
-  //     const pause = window.confirm('Do you wanna pause?')
-  //     if (pause) {
-  //       setTimeRemaining(timer * 60)
-  //       setActiveTimer(true)
-  //     }
-  //   }
-  // }, [timer, setTimeRemaining, setActiveTimer])
-
   return (
     <div className='mt-20 flex flex-col items-center'>
       <LinearBar
@@ -65,6 +60,7 @@ function Pomodoro({ id }: PomodoroProps) {
       />
       <Display timeRemaining={timeRemaining} />
       <TimerButton
+        doneState={{ done, setDone }}
         activeTimer={activeTimer}
         setActiveTimer={setActiveTimer}
         resetTime={resetTime}
