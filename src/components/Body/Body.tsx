@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { ControllerProvider } from '../../contexts/ControllerContext'
+import { SoundContextProvider } from '../../contexts/SoundContext'
 import { TaskContext } from '../../contexts/TaskContext'
 import CreateTask from '../CreateTask/CreateTask'
 import TaskView from '../TaskView/TaskView'
@@ -14,7 +15,9 @@ function Body({}: BodyProps) {
       <ControllerProvider>
         <Welcome />
         <CreateTask />
-        <TaskView taskId={taskId} />
+        <SoundContextProvider>
+          <TaskView taskId={taskId} />
+        </SoundContextProvider>
       </ControllerProvider>
     </div>
   )

@@ -4,6 +4,7 @@ import Display from '../Display/Display'
 import Controller from '../Controller/Controller'
 import TimerButton from '../TimerButton/TimerButton'
 import { TaskContext } from '../../contexts/TaskContext'
+import { SoundContext } from '../../contexts/SoundContext'
 
 export type PomodoroProps = {
   id: string
@@ -11,6 +12,7 @@ export type PomodoroProps = {
 
 function Pomodoro({ id }: PomodoroProps) {
   const { storage } = useContext(TaskContext)
+  const audio = useContext(SoundContext)
   const timer = storage![id].timer.time
   const [timeRemaining, setTimeRemaining] = useState(timer * 60) // in seconds
   const [timeElapsed, setTimeElapsed] = useState(0) // in seconds
@@ -26,10 +28,15 @@ function Pomodoro({ id }: PomodoroProps) {
         const timeId = setTimeout(() => {
           setTimeRemaining((time) => time - 1)
           setTimeElapsed((timeElapsed) => timeElapsed + 1)
-        }, 1000)
+        }, 10)
         setTimeoutId(timeId)
       } else if (!done) {
+        console.log('DONE')
         setDone(true)
+        if (audio) {
+          audio.currentTime = 0
+          audio.play().then(() => true)
+        }
       }
     } else {
       clearTimeout(timeoutId!)
@@ -64,6 +71,7 @@ function Pomodoro({ id }: PomodoroProps) {
         activeTimer={activeTimer}
         setActiveTimer={setActiveTimer}
         resetTime={resetTime}
+        audio={audio}
       />
       <Controller taskId={id} />
     </div>

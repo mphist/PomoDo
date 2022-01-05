@@ -10,6 +10,7 @@ export type TimerButtonProps = {
     done: boolean
     setDone: React.Dispatch<React.SetStateAction<boolean>>
   }
+  audio: HTMLAudioElement | null
 }
 
 function TimerButton({
@@ -17,6 +18,7 @@ function TimerButton({
   setActiveTimer,
   resetTime,
   doneState: { done, setDone },
+  audio,
 }: TimerButtonProps) {
   return (
     <div>
@@ -35,6 +37,10 @@ function TimerButton({
       <button
         className='bg-burgundy w-10 mx-1 text-white tracking-wide hover:brightness-95 mt-14 rounded-lg py-1 px-2'
         onClick={() => {
+          if (audio) {
+            audio.pause()
+            audio.currentTime = 0
+          }
           resetTime()
           setDone(false)
         }}
