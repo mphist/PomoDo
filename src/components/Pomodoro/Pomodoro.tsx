@@ -25,10 +25,13 @@ function Pomodoro({ id }: PomodoroProps) {
   useEffect(() => {
     if (activeTimer) {
       if (timeElapsed < timer * 60 - 1) {
-        const timeId = setTimeout(() => {
-          setTimeRemaining((time) => time - 1)
-          setTimeElapsed((timeElapsed) => timeElapsed + 1)
-        }, 10)
+        const timeId = setTimeout(
+          () => {
+            setTimeRemaining((time) => time - 1)
+            setTimeElapsed((timeElapsed) => timeElapsed + 1)
+          },
+          process.env.NODE_ENV === 'production' ? 1000 : 10
+        )
         setTimeoutId(timeId)
       } else if (!done) {
         console.log('DONE')
