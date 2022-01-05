@@ -53,7 +53,7 @@ function Modal({ state: { show, setShow }, id, name, time }: ModalProps) {
 
   return (
     <div className='w-screen h-screen fixed top-0 left-0'>
-      <div className='bg-white flex flex-col items-center rounded-md w-[270px] h-32 fixed top-72 left-[56%] ml-[-135px]'>
+      <div className='bg-white flex flex-col items-center rounded-md font-bold text-sm text-gray-dark w-[320px] h-28 fixed left-[100px] right-0 mx-auto top-[300px]'>
         <div className='h-[70%]'>
           <p className='p-6'>{message}</p>
         </div>
