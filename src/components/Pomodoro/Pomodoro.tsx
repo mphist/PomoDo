@@ -11,7 +11,7 @@ export type PomodoroProps = {
 }
 
 function Pomodoro({ id }: PomodoroProps) {
-  const { storage } = useContext(TaskContext)
+  const { storage, setStorage } = useContext(TaskContext)
   const audio = useContext(SoundContext)
   const timer = storage![id].timer.time
   const [timeRemaining, setTimeRemaining] = useState(timer * 60) // in seconds
@@ -34,7 +34,20 @@ function Pomodoro({ id }: PomodoroProps) {
         )
         setTimeoutId(timeId)
       } else if (!done) {
-        console.log('DONE')
+        const mode = storage![id].timer.mode
+        setStorage!({
+          ...storage,
+          [id]: {
+            ...storage![id],
+            timer:
+              mode === 'focus'
+                ? {
+                    mode: 'short break',
+                    time: 5,
+                  }
+                : { mode: 'focus', time: 25 },
+          },
+        })
         setDone(true)
         if (audio) {
           audio.currentTime = 0
