@@ -1,6 +1,7 @@
 import { faPause, faPlay, faUndoAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useContext } from 'react'
+import { SoundContext } from '../../contexts/SoundContext'
 
 export type TimerButtonProps = {
   activeTimer: boolean
@@ -25,7 +26,13 @@ function TimerButton({
       {!done && (
         <button
           className='bg-burgundy w-10 mx-1  text-white tracking-wide hover:brightness-95 mt-14 rounded-lg py-1 px-2'
-          onClick={() => setActiveTimer(!activeTimer)}
+          onClick={() => {
+            // if (audio) {
+            //   audio.pause()
+            //   // audio.currentTime = 0
+            // }
+            setActiveTimer(!activeTimer)
+          }}
         >
           {activeTimer ? (
             <FontAwesomeIcon icon={faPause} />
@@ -37,12 +44,8 @@ function TimerButton({
       <button
         className='bg-burgundy w-10 mx-1 text-white tracking-wide hover:brightness-95 mt-14 rounded-lg py-1 px-2'
         onClick={() => {
-          if (audio) {
-            audio.pause()
-            audio.currentTime = 0
-          }
           resetTime()
-          setDone(false)
+          // setDone(false)
         }}
       >
         {<FontAwesomeIcon icon={faUndoAlt} />}

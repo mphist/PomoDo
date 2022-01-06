@@ -48,9 +48,9 @@ function Pomodoro({ id }: PomodoroProps) {
                 : { mode: 'focus', time: 25 },
           },
         })
-        setDone(true)
+        // setDone(true)
         if (audio) {
-          audio.currentTime = 0
+          audio.volume = 0.3
           audio.play().then(() => true)
         }
       }
