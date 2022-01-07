@@ -9,14 +9,8 @@ export type CreateTaskProps = {}
 
 function CreateTask({}: CreateTaskProps) {
   const [toggleList, setToggleList] = useState(false)
-  const {
-    toggleCreate,
-    setToggleCreate,
-    task,
-    setTask,
-    setToggleTaskView,
-    setTaskId,
-  } = useContext(TaskContext)
+  const { toggleCreate, setToggleCreate, setToggleTaskView, setTaskId } =
+    useContext(TaskContext)
   const ref = useRef<HTMLInputElement>(null)
   const [uniqueId, setUniqueId] = useState('')
   const [subtaskId, setSubtaskId] = useState('')
