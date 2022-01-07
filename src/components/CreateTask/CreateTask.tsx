@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react'
-import { TaskContext } from '../../contexts/TaskContext'
+import { TaskContext, TaskContextType } from '../../contexts/TaskContext'
 import generateId from '../../lib/generateId'
 import getSavedTasks from '../../lib/getSavedTasks'
 import InputController from '../InputController/InputController'
@@ -22,6 +22,8 @@ function CreateTask({}: CreateTaskProps) {
   const [subtaskId, setSubtaskId] = useState('')
   const [showSubtaskInputController, setShowSubtaskInputController] =
     useState(false)
+  // const [inputTaskName, setInputTaskName] = useState('')
+  const [localTask, setLocalTask] = useState<TaskContextType | null>(null)
 
   const savedTasks = getSavedTasks()
 
@@ -47,17 +49,26 @@ function CreateTask({}: CreateTaskProps) {
     return <div className='opacity-0'></div>
   }
 
+  const mergeTasks = (
+    localTask: TaskContextType | null,
+    savedTasks: TaskContextType | null
+  ) => {
+    return {
+      ...savedTasks,
+      ...localTask,
+    }
+  }
+
   const handleCreateTask = (inputTaskName: string) => {
     const el = document.querySelector('.taskList') as HTMLElement
     if (el) {
       el.style.opacity = '1'
     }
-    //saving the task here
-    setTask!({
-      ...savedTasks,
+    //saving the task locally
+    setLocalTask({
       [uniqueId]: {
         name: inputTaskName,
-        subtask: { ...savedTasks?.[uniqueId]?.subtask } || null,
+        subtask: {},
         timer: { mode: 'focus', time: 25 },
       },
     })
@@ -65,25 +76,26 @@ function CreateTask({}: CreateTaskProps) {
   }
 
   const handleCreateClick = () => {
-    //save task in localStorage
-    localStorage.setItem('task', JSON.stringify(task))
+    //merge tasks and save in localStorage
+    const mergedTasks = mergeTasks(localTask, savedTasks)
+    localStorage.setItem('task', JSON.stringify(mergedTasks))
+
     setToggleCreate!(false)
     setToggleTaskView!(true)
     setTaskId!(uniqueId)
   }
 
   const handleCreateSubtask = (subtaskName: string) => {
-    setTask!({
-      ...task,
+    setLocalTask({
+      ...localTask,
       [uniqueId]: {
-        ...task?.[uniqueId]!,
+        ...localTask![uniqueId],
         subtask: {
-          ...task?.[uniqueId]!.subtask,
+          ...localTask![uniqueId].subtask,
           [subtaskId]: subtaskName,
         },
       },
     })
-    localStorage.setItem('task', JSON.stringify(task))
     setShowSubtaskInputController(false)
   }
 
@@ -130,9 +142,9 @@ function CreateTask({}: CreateTaskProps) {
           </div>
         </div>
         <h2 className='bg-tomato w-72 rounded-md text-center p-2 mx-auto my-0 text-white'>
-          {task?.[uniqueId]?.name}
+          {localTask?.[uniqueId]?.name}
         </h2>
-        <SubtaskList subtasks={task?.[uniqueId]?.subtask} />
+        <SubtaskList subtasks={localTask?.[uniqueId]?.subtask} />
       </section>
       <button
         className='button-style createBtn opacity-0 transition-effect flex mx-auto'
