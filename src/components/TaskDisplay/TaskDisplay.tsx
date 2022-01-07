@@ -1,17 +1,19 @@
 import { useContext } from 'react'
-import { TaskContext } from '../../contexts/TaskContext'
+import { TaskContext, TaskContextType } from '../../contexts/TaskContext'
 
 export type TaskDisplayProps = {
   id: string
 }
 
 function TaskDisplay({ id }: TaskDisplayProps) {
-  const { storage } = useContext(TaskContext)
-  const subtasks = storage![id].subtask
+  const { task } = useContext(TaskContext)
+  const local = localStorage.getItem('task')
+  const savedTasks: TaskContextType = local && JSON.parse(local)
+  const subtasks = savedTasks![id]?.subtask || task![id]?.subtask
   return (
     <div className='flex flex-col justify-center mt-20'>
       <h2 className='bg-tomato w-72 rounded-md text-center p-2 mx-auto my-0 text-white'>
-        {storage![id].name}
+        {savedTasks?.[id]?.name || task![id]?.name}
       </h2>
       <div className='subtaskList'>
         <ul>

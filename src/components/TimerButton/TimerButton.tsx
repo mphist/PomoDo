@@ -1,7 +1,6 @@
 import { faPause, faPlay, faUndoAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useContext } from 'react'
-import { SoundContext } from '../../contexts/SoundContext'
+import React from 'react'
 
 export type TimerButtonProps = {
   activeTimer: boolean

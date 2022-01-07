@@ -1,6 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import { TaskContext } from '../../contexts/TaskContext'
 import generateId from '../../lib/generateId'
+import getSavedTasks from '../../lib/getSavedTasks'
 import InputController from '../InputController/InputController'
 import SubtaskList from '../SubtaskList/SubtaskList'
 
@@ -13,8 +14,6 @@ function CreateTask({}: CreateTaskProps) {
     setToggleCreate,
     task,
     setTask,
-    storage,
-    setStorage,
     setToggleTaskView,
     setTaskId,
   } = useContext(TaskContext)
@@ -23,6 +22,8 @@ function CreateTask({}: CreateTaskProps) {
   const [subtaskId, setSubtaskId] = useState('')
   const [showSubtaskInputController, setShowSubtaskInputController] =
     useState(false)
+
+  const savedTasks = getSavedTasks()
 
   useEffect(() => {
     //create a uniqueId for main task
@@ -53,10 +54,10 @@ function CreateTask({}: CreateTaskProps) {
     }
     //saving the task here
     setTask!({
-      ...task,
+      ...savedTasks,
       [uniqueId]: {
         name: inputTaskName,
-        subtask: { ...task?.[uniqueId]?.subtask } || null,
+        subtask: { ...savedTasks?.[uniqueId]?.subtask } || null,
         timer: { mode: 'focus', time: 25 },
       },
     })
@@ -64,7 +65,8 @@ function CreateTask({}: CreateTaskProps) {
   }
 
   const handleCreateClick = () => {
-    setStorage!({ ...task })
+    //save task in localStorage
+    localStorage.setItem('task', JSON.stringify(task))
     setToggleCreate!(false)
     setToggleTaskView!(true)
     setTaskId!(uniqueId)
@@ -81,6 +83,7 @@ function CreateTask({}: CreateTaskProps) {
         },
       },
     })
+    localStorage.setItem('task', JSON.stringify(task))
     setShowSubtaskInputController(false)
   }
 

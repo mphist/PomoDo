@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { TaskContext } from '../../contexts/TaskContext'
+import getSavedTasks from '../../lib/getSavedTasks'
 
 export type ModalProps = {
   state: {
@@ -14,10 +15,12 @@ export type ModalProps = {
 function Modal({ state: { show, setShow }, id, name, time }: ModalProps) {
   const [changeMode, setChangeMode] = useState(false)
   const [message, setMessage] = useState('')
-  const { storage, setStorage } = useContext(TaskContext)
+  const { task, setTask } = useContext(TaskContext)
+  const savedTasks = getSavedTasks()
 
   useEffect(() => {
-    const mode = storage![id].timer.mode
+    const mode = task![id]?.timer?.mode || savedTasks?.[id]?.timer?.mode
+
     if (name.toLowerCase() === mode) {
       return
     }
@@ -26,14 +29,20 @@ function Modal({ state: { show, setShow }, id, name, time }: ModalProps) {
     } else {
       setMessage('Would you like to end your break early?')
     }
-  }, [storage, setMessage, id, name])
+    // save storage localStorage
+    if (task && Object.keys(task).length > 0) {
+      localStorage.setItem('task', JSON.stringify(task))
+    } else {
+      localStorage.setItem('task', JSON.stringify(savedTasks))
+    }
+  }, [task, setMessage, id, name, savedTasks])
 
   useEffect(() => {
     if (changeMode) {
-      setStorage!({
-        ...storage,
+      setTask!({
+        ...savedTasks,
         [id]: {
-          ...storage![id],
+          ...savedTasks![id],
           timer: {
             mode: name.toLowerCase(),
             time,
