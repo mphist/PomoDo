@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { TaskContext } from '../../contexts/TaskContext'
+import getSavedTasks from '../../lib/getSavedTasks'
 import Modal from '../Modal/Modal'
 
 export type ControllerButtonProps = {
@@ -11,13 +12,20 @@ export type ControllerButtonProps = {
 function ControllerButton({ name, time, id }: ControllerButtonProps) {
   const [show, setShow] = useState(false)
   const { task } = useContext(TaskContext)
+  const savedTasks = getSavedTasks()
   return (
     <div>
       <button
         className='p-2 bg-primary w-[118px] rounded-lg text-white text-sm font-bold uppercase cursor-pointer tracking-wide hover:brightness-95'
         onClick={() => {
-          if (name.toLowerCase() !== task![id]?.timer?.mode) {
-            setShow(true)
+          if (task && Object.keys(task).length > 0) {
+            if (name.toLowerCase() !== task![id]?.timer?.mode) {
+              setShow(true)
+            }
+          } else {
+            if (name.toLowerCase() !== savedTasks![id]?.timer.mode) {
+              setShow(true)
+            }
           }
         }}
       >
