@@ -77,6 +77,10 @@ function CreateTask({}: CreateTaskProps) {
     setToggleCreate!(false)
     setToggleTaskView!(true)
     setTaskId!(uniqueId)
+
+    if (showSubtaskInputController) {
+      setShowSubtaskInputController(false)
+    }
   }
 
   const handleCreateSubtask = (subtaskName: string) => {
