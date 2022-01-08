@@ -91,7 +91,7 @@ function TaskDisplay({ id }: TaskDisplayProps) {
             ))}
         </ul>
       </div>
-      <button className='doneBtn mx-auto mt-6 opacity-0 transition-effect bg-[#ff6c6c] text-white p-2 rounded-md hover:brightness-95'>
+      <button className='doneBtn mx-auto mt-6 tracking-wide opacity-0 transition-effect bg-[#ff6c6c] text-white p-2 rounded-md hover:brightness-95'>
         DONE
       </button>
     </div>
