@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { TaskContext, TaskContextType } from '../../contexts/TaskContext'
 
 export type TaskDisplayProps = {
@@ -6,10 +6,20 @@ export type TaskDisplayProps = {
 }
 
 function TaskDisplay({ id }: TaskDisplayProps) {
-  const { task, setTask } = useContext(TaskContext)
+  const { task, setTask, setToggleTaskView } = useContext(TaskContext)
   const local = localStorage.getItem('task')
   const savedTasks: TaskContextType = local && JSON.parse(local)
-  const subtasks = task![id]?.subtask || savedTasks[id]?.subtask
+  const tasks = task && Object.keys(task).length > 0 ? task : savedTasks
+  // const subtasks = task![id]?.subtask || savedTasks?.[id]?.subtask
+  const subtasks = tasks?.[id]?.subtask
+  const [removed, setRemoved] = useState(false)
+
+  useEffect(() => {
+    if (removed) {
+      setToggleTaskView!(false)
+      setRemoved(false)
+    }
+  }, [task, setToggleTaskView, setRemoved, removed])
 
   useEffect(() => {
     const checkBoxes = document.querySelectorAll('.form-checkbox')
@@ -32,35 +42,26 @@ function TaskDisplay({ id }: TaskDisplayProps) {
   })
 
   const handleClickCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (task && Object.keys(task).length > 0) {
-      setTask!({
-        ...task,
-        [id]: {
-          ...task![id],
-          subtask: {
-            ...task![id]?.subtask,
-            [e.currentTarget.id]: {
-              ...task![id]?.subtask![e.currentTarget.id],
-              checked: e.currentTarget.checked,
-            },
+    setTask!({
+      ...tasks,
+      [id]: {
+        ...tasks![id],
+        subtask: {
+          ...tasks![id]?.subtask,
+          [e.currentTarget.id]: {
+            ...tasks![id]?.subtask![e.currentTarget.id],
+            checked: e.currentTarget.checked,
           },
         },
-      })
-    } else {
-      setTask!({
-        ...savedTasks,
-        [id]: {
-          ...savedTasks![id],
-          subtask: {
-            ...savedTasks![id]?.subtask,
-            [e.currentTarget.id]: {
-              ...savedTasks![id]?.subtask![e.currentTarget.id],
-              checked: e.currentTarget.checked,
-            },
-          },
-        },
-      })
-    }
+      },
+    })
+  }
+
+  const handleRemoveTask = () => {
+    delete tasks[id]
+    localStorage.setItem('task', JSON.stringify(tasks))
+    setTask!(tasks)
+    setRemoved(true)
   }
 
   return (
@@ -91,7 +92,10 @@ function TaskDisplay({ id }: TaskDisplayProps) {
             ))}
         </ul>
       </div>
-      <button className='doneBtn mx-auto mt-6 tracking-wide opacity-0 transition-effect bg-[#ff6c6c] text-white p-2 rounded-md hover:brightness-95'>
+      <button
+        className='doneBtn mx-auto mt-6 tracking-wide opacity-0 transition-effect bg-[#ff6c6c] text-white p-2 rounded-md hover:brightness-95'
+        onClick={handleRemoveTask}
+      >
         DONE
       </button>
     </div>

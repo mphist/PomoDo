@@ -29,9 +29,9 @@ function Pomodoro({ id }: PomodoroProps) {
 
   useEffect(() => {
     if (task && task[id]) {
-      setTimer(task[id].timer.time)
+      setTimer(task[id]?.timer?.time)
     } else {
-      setTimer(savedTasks![id].timer.time)
+      setTimer(savedTasks?.[id]?.timer?.time)
     }
   }, [task, savedTasks, id, setTimer])
 

@@ -9,10 +9,11 @@ function SideBar({}: SideBarProps) {
   const { task } = useContext(TaskContext)
   const [savedTasks, setSavedTasks] = useState<[string, Task][] | null>(null)
   const local = localStorage.getItem('task')
-
   useEffect(() => {
     if (local) {
       setSavedTasks(Object.entries(JSON.parse(local)))
+    } else {
+      setSavedTasks(null)
     }
   }, [setSavedTasks, local])
 

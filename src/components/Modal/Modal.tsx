@@ -32,7 +32,7 @@ function Modal({ state: { show, setShow }, id, name, time }: ModalProps) {
     // save storage localStorage
     if (task && Object.keys(task).length > 0) {
       localStorage.setItem('task', JSON.stringify(task))
-    } else {
+    } else if (savedTasks) {
       localStorage.setItem('task', JSON.stringify(savedTasks))
     }
   }, [task, setMessage, id, name, savedTasks])
