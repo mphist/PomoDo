@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { TaskContext, TaskContextType } from '../../contexts/TaskContext'
 
 export type TaskDisplayProps = {
@@ -6,11 +6,10 @@ export type TaskDisplayProps = {
 }
 
 function TaskDisplay({ id }: TaskDisplayProps) {
-  const { task } = useContext(TaskContext)
-  const [, setReRender] = useState(false)
+  const { task, setTask } = useContext(TaskContext)
   const local = localStorage.getItem('task')
   const savedTasks: TaskContextType = local && JSON.parse(local)
-  const subtasks = savedTasks![id]?.subtask || task![id]?.subtask
+  const subtasks = task![id]?.subtask || savedTasks[id]?.subtask
 
   useEffect(() => {
     const checkBoxes = document.querySelectorAll('.form-checkbox')
@@ -32,6 +31,38 @@ function TaskDisplay({ id }: TaskDisplayProps) {
     }
   })
 
+  const handleClickCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (task && Object.keys(task).length > 0) {
+      setTask!({
+        ...task,
+        [id]: {
+          ...task![id],
+          subtask: {
+            ...task![id]?.subtask,
+            [e.currentTarget.id]: {
+              ...task![id]?.subtask![e.currentTarget.id],
+              checked: e.currentTarget.checked,
+            },
+          },
+        },
+      })
+    } else {
+      setTask!({
+        ...savedTasks,
+        [id]: {
+          ...savedTasks![id],
+          subtask: {
+            ...savedTasks![id]?.subtask,
+            [e.currentTarget.id]: {
+              ...savedTasks![id]?.subtask![e.currentTarget.id],
+              checked: e.currentTarget.checked,
+            },
+          },
+        },
+      })
+    }
+  }
+
   return (
     <div className='flex flex-col justify-center mt-20'>
       <h2 className='bg-tomato w-72 rounded-md text-center p-2 mx-auto my-0 text-white'>
@@ -48,12 +79,13 @@ function TaskDisplay({ id }: TaskDisplayProps) {
                 <div className='flex break-all'>
                   <input
                     className='form-checkbox w-6 h-6 mr-2 rounded-sm border-0 focus:ring-0 focus:outline-none focus:ring-offset-0 checked:bg-tomato checked:text-tomato'
-                    id='substask'
+                    id={subtask[0]}
                     name='subtask'
                     type='checkbox'
-                    onChange={() => setReRender((r) => !r)}
+                    onChange={handleClickCheckbox}
+                    checked={subtask[1].checked}
                   />
-                  <span className='ml-2'>{subtask[1]}</span>
+                  <span className='ml-2'>{subtask[1].name}</span>
                 </div>
               </li>
             ))}

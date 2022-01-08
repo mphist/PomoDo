@@ -86,7 +86,7 @@ function CreateTask({}: CreateTaskProps) {
         ...localTask![uniqueId],
         subtask: {
           ...localTask![uniqueId].subtask,
-          [subtaskId]: subtaskName,
+          [subtaskId]: { name: subtaskName, checked: false },
         },
       },
     })

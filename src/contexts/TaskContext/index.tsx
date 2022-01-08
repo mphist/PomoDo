@@ -14,7 +14,7 @@ export type TaskContextType = {
   [id: string]: {
     name: string
     subtask: {
-      [id: string]: string
+      [id: string]: { name: string; checked: boolean }
     } | null
     timer: {
       mode: string

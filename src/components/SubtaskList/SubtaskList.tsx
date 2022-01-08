@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 export type SubtaskListProps = {
   subtasks:
     | {
-        [subtaskId: string]: string
+        [subtaskId: string]: { name: string; checked: boolean }
       }
     | undefined
     | null
@@ -46,7 +46,7 @@ function SubtaskList({ subtasks }: SubtaskListProps) {
                   className='cursor-pointer my-1'
                   onClick={deleteSubtask}
                 />
-                <span className='ml-2'>{subtask[1]}</span>
+                <span className='ml-2'>{subtask[1].name}</span>
               </div>
             </li>
           ))}
