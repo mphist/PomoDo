@@ -18,7 +18,9 @@ function SideBar({}: SideBarProps) {
   }, [setSavedTasks, local])
 
   const tasks =
-    Object.entries(task!).length > 0 ? Object.entries(task!) : savedTasks
+    task && Object.entries(task!).length > 0
+      ? Object.entries(task!)
+      : savedTasks
 
   return (
     <div className='mt-10'>
