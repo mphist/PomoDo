@@ -5,6 +5,7 @@ import Controller from '../Controller/Controller'
 import TimerButton from '../TimerButton/TimerButton'
 import { TaskContext, TaskContextType } from '../../contexts/TaskContext'
 import { SoundContext } from '../../contexts/SoundContext'
+import { WebWorkerContext } from '../../contexts/WebWorkerContext'
 
 export type PomodoroProps = {
   id: string
@@ -26,6 +27,7 @@ function Pomodoro({ id }: PomodoroProps) {
   const [activeTimer, setActiveTimer] = useState(false)
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>()
   const [done, setDone] = useState(false)
+  const timerWorker = useContext(WebWorkerContext)
 
   useEffect(() => {
     if (task && task[id]) {
@@ -38,14 +40,20 @@ function Pomodoro({ id }: PomodoroProps) {
   useEffect(() => {
     if (activeTimer) {
       if (timeElapsed < timer * 60 - 1) {
-        const timeId = setTimeout(
-          () => {
-            setTimeRemaining((time) => time - 1)
-            setTimeElapsed((timeElapsed) => timeElapsed + 1)
-          },
-          process.env.NODE_ENV === 'production' ? 1000 : 10
-        )
-        setTimeoutId(timeId)
+        if (timerWorker) {
+          timerWorker.postMessage({
+            msg: 'startTimer',
+            timeElapsed,
+            delay: process.env.NODE_ENV === 'production' ? 1000 : 10,
+          })
+          timerWorker.onmessage = (e) => {
+            if (e && e.data) {
+              setTimeoutId(e.data)
+              setTimeRemaining((timeRemaining) => timeRemaining - 1)
+              setTimeElapsed((timeElapsed) => timeElapsed + 1)
+            }
+          }
+        }
       } else if (!done) {
         // switch mode after current mode finishes and save to storage context
         const mode = task![id]?.timer?.mode
@@ -89,7 +97,16 @@ function Pomodoro({ id }: PomodoroProps) {
         }
       }
     } else {
-      clearTimeout(timeoutId!)
+      if (timerWorker) {
+        timerWorker.postMessage({
+          msg: 'startTimer',
+        })
+        timerWorker.onmessage = (e) => {
+          if (e && e.data) {
+            clearTimeout(e.data)
+          }
+        }
+      }
     }
 
     window.addEventListener('resize', (e) => {

@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { SoundContextProvider } from '../../contexts/SoundContext'
 import { TaskContext } from '../../contexts/TaskContext'
+import { WebWorkerContextProvider } from '../../contexts/WebWorkerContext'
 import CreateTask from '../CreateTask/CreateTask'
 import TaskView from '../TaskView/TaskView'
 import Welcome from '../Welcome/Welcome'
@@ -14,7 +15,9 @@ function Body({}: BodyProps) {
       <Welcome />
       <CreateTask />
       <SoundContextProvider>
-        <TaskView taskId={taskId} />
+        <WebWorkerContextProvider>
+          <TaskView taskId={taskId} />
+        </WebWorkerContextProvider>
       </SoundContextProvider>
     </div>
   )
