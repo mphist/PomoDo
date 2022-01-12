@@ -1,3 +1,5 @@
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import { TaskContext, TaskContextType } from '../../contexts/TaskContext'
 
@@ -65,8 +67,11 @@ function TaskDisplay({ id }: TaskDisplayProps) {
   }
 
   return (
-    <div className='flex flex-col justify-center mt-20'>
-      <h2 className='bg-tomato w-72 rounded-md text-center p-2 mx-auto my-0 text-white'>
+    <div className='flex flex-col justify-center'>
+      <h1 className='w-72 mt-[-100px] text-2xl text-center mx-auto border-b-[1px]'>
+        Today's Tasks:
+      </h1>
+      <h2 className='w-72 text-xl rounded-md p-2 mx-auto my-0'>
         {savedTasks?.[id]?.name || task![id]?.name}
       </h2>
       <div className='subtaskList'>
@@ -75,11 +80,11 @@ function TaskDisplay({ id }: TaskDisplayProps) {
             Object.entries(subtasks).map((subtask, key) => (
               <li
                 key={key}
-                className='w-72 subtaskItem my-2 bg-primary rounded-md text-white p-2 mx-auto '
+                className='w-72 subtaskItem my-2 rounded-md p-2 mx-auto '
               >
                 <div className='flex break-all'>
                   <input
-                    className='form-checkbox w-6 h-6 mr-2 rounded-sm border-0 focus:ring-0 focus:outline-none focus:ring-offset-0 checked:bg-tomato checked:text-tomato'
+                    className='form-checkbox w-6 h-6 mr-2 rounded-sm border-2 border-[#000] focus:ring-0 focus:outline-none focus:ring-offset-0 checked:bg-[#000] checked:text-[#000]'
                     id={subtask[0]}
                     name='subtask'
                     type='checkbox'
@@ -92,11 +97,14 @@ function TaskDisplay({ id }: TaskDisplayProps) {
             ))}
         </ul>
       </div>
-      <button
+      {/* <button
         className='doneBtn mx-auto mt-6 tracking-wide opacity-0 transition-effect bg-tomato text-white p-2 rounded-md hover:brightness-95'
         onClick={handleRemoveTask}
       >
         DONE
+      </button> */}
+      <button className='relative top-[-135px] ml-60'>
+        <FontAwesomeIcon icon={faTimes} />
       </button>
     </div>
   )

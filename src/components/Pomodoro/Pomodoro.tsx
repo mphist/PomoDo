@@ -6,6 +6,8 @@ import TimerButton from '../TimerButton/TimerButton'
 import { TaskContext, TaskContextType } from '../../contexts/TaskContext'
 import { SoundContext } from '../../contexts/SoundContext'
 import { WebWorkerContext } from '../../contexts/WebWorkerContext'
+import CircularBar from '../CircularBar/CircularBar'
+import capitalizeFirstLetter from '../../lib/capitalizeFirstLetter'
 
 export type PomodoroProps = {
   id: string
@@ -44,7 +46,7 @@ function Pomodoro({ id }: PomodoroProps) {
           timerWorker.postMessage({
             msg: 'startTimer',
             timeElapsed,
-            delay: process.env.NODE_ENV === 'production' ? 1000 : 10,
+            delay: process.env.NODE_ENV === 'production' ? 1000 : 1000,
           })
           timerWorker.onmessage = (e) => {
             if (e && e.data) {
@@ -97,6 +99,7 @@ function Pomodoro({ id }: PomodoroProps) {
         }
       }
     } else {
+      console.log('changed tab')
       if (timerWorker) {
         timerWorker.postMessage({
           msg: 'startTimer',
@@ -122,17 +125,24 @@ function Pomodoro({ id }: PomodoroProps) {
   }, [timer])
 
   useEffect(() => {
+    console.log('resetting time')
     resetTime()
-  }, [task, resetTime])
+  }, [id, resetTime])
 
   return (
-    <div className='mt-20 flex flex-col items-center'>
-      <LinearBar
+    <div className='mt-36 flex flex-col items-center'>
+      {/* <LinearBar
         timeElapsed={timeElapsed}
         minutes={minutes}
         viewPortX={viewPortX}
-      />
-      <Display timeRemaining={timeRemaining} />
+      /> */}
+      {savedTasks && (
+        <h1 className='text-3xl mb-10'>
+          {capitalizeFirstLetter(savedTasks[id].timer.mode)}
+        </h1>
+      )}
+      <CircularBar timeElapsed={timeElapsed} minutes={minutes} />
+      <Display timeRemaining={timeRemaining} minutes={minutes} />
       <TimerButton
         doneState={{ done, setDone }}
         activeTimer={activeTimer}

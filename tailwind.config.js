@@ -2,8 +2,8 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     fontFamily: {
-      logo: ['"Concert One"', 'cursive'],
-      timer: ['Rubik', 'sans-serif'],
+      logo: ['"Swanky and Moo Moo"', 'cursive'],
+      timer: ['"Swanky and Moo Moo"', 'cursive'],
     },
     screens: {
       sm: '480px',
@@ -28,6 +28,8 @@ module.exports = {
         primary: 'var(--color-bg-primary)',
         secondary: 'var(--color-bg-secondary)',
         tomato: 'var(--color-bg-tomato)',
+        tortoise: 'var(--color-bg-tortoise)',
+        pink: 'var(--color-bg-pink)',
         burgundy: 'var(--color-bg-burgundy)',
       },
       textColor: {
@@ -35,10 +37,14 @@ module.exports = {
         primary: 'var(--color-text-primary)',
         secondary: 'var(--color-text-secondary)',
         tomato: 'var(--color-text-tomato)',
+        tortoise: 'var(--color-bg-tortoise)',
+        pink: 'var(--color-bg-pink)',
         ivory: 'var(--color-text-ivory)',
       },
       borderColor: {
         tomato: 'var(--color-text-tomato)',
+        tortoise: 'var(--color-bg-tortoise)',
+        pink: 'var(--color-bg-pink)',
       },
     },
   },

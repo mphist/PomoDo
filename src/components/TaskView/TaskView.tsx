@@ -17,7 +17,7 @@ function TaskView({ taskId }: TaskViewProps) {
   })
   if (!toggleTaskView) return null
   return (
-    <div className='opacity-0 taskView transition-effect'>
+    <div className='opacity-0 relative top-[-120px] taskView transition-effect'>
       <Pomodoro id={taskId} />
       <TaskDisplay id={taskId} />
     </div>

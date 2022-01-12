@@ -21,7 +21,7 @@ function TimerButton({
   audio,
 }: TimerButtonProps) {
   return (
-    <div>
+    <div className='relative top-[-340px]'>
       {!done && (
         <button
           className='bg-burgundy w-10 mx-1  text-white tracking-wide hover:brightness-95 mt-14 rounded-lg py-1 px-2'
