@@ -99,16 +99,22 @@ function Pomodoro({ id }: PomodoroProps) {
         }
       }
     } else {
-      console.log('changed tab')
-      if (timerWorker) {
-        timerWorker.postMessage({
-          msg: 'startTimer',
-        })
-        timerWorker.onmessage = (e) => {
-          if (e && e.data) {
-            clearTimeout(e.data)
-          }
-        }
+      // if (timerWorker) {
+      //   timerWorker.postMessage({
+      //     msg: 'startTimer',
+      //   })
+      //   console.log('changed tab')
+      //   timerWorker.onmessage = (e) => {
+      //     console.log('did send message?', e)
+      //     if (e && e.data) {
+      //       console.log('clearing timeout', e.data)
+      //       clearTimeout(e.data)
+      //     }
+      //   }
+      // }
+      if (timeoutId) {
+        console.log('timeout id', timeoutId)
+        clearTimeout(timeoutId)
       }
     }
 
@@ -127,7 +133,7 @@ function Pomodoro({ id }: PomodoroProps) {
   useEffect(() => {
     console.log('resetting time')
     resetTime()
-  }, [id, resetTime])
+  }, [resetTime])
 
   return (
     <div className='mt-36 flex flex-col items-center'>
@@ -137,7 +143,7 @@ function Pomodoro({ id }: PomodoroProps) {
         viewPortX={viewPortX}
       /> */}
       {savedTasks && (
-        <h1 className='text-3xl mb-10'>
+        <h1 className='text-3xl mb-10 text-[#343a40]'>
           {capitalizeFirstLetter(savedTasks[id].timer.mode)}
         </h1>
       )}

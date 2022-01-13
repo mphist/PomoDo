@@ -69,9 +69,9 @@ function TaskDisplay({ id }: TaskDisplayProps) {
   return (
     <div className='flex flex-col justify-center'>
       <h1 className='w-72 mt-[-100px] text-2xl text-center mx-auto border-b-[1px]'>
-        Today's Tasks:
+        Today's Tasks
       </h1>
-      <h2 className='w-72 text-xl rounded-md p-2 mx-auto my-0'>
+      <h2 className='w-72 text-xl text-[#ff5c58] rounded-md p-2 mx-auto my-0'>
         {savedTasks?.[id]?.name || task![id]?.name}
       </h2>
       <div className='subtaskList'>

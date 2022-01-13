@@ -16,27 +16,25 @@ function ControllerButton({ name, time, id }: ControllerButtonProps) {
   const savedTasks = getSavedTasks()
   const tasks = task && Object.keys(task).length > 0 ? task : savedTasks
 
-  console.log(name)
   useEffect(() => {
     switch (name) {
       case 'Focus':
         setClassName(
-          'p-2 bg-[#F38181] relative top-[-150px] w-[125px] rounded-[2px] text-white text-sm font-bold uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
+          'p-2 bg-[#ff5c58] border-[1px] relative top-[-150px] w-[125px] rounded-[2px] text-black text-sm uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
         )
         break
       case 'Short Break':
         setClassName(
-          'p-2 bg-[#A7BBC7] relative top-[-150px] w-[125px] rounded-[2px] text-white text-sm font-bold uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
+          'p-2 bg-[#97bfb4] border-[1px] relative top-[-150px] w-[125px] rounded-[2px] text-black text-sm uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
         )
         break
       case 'Long Break':
         setClassName(
-          'p-2 bg-[#756C83] relative top-[-150px] w-[125px] rounded-[2px] text-white text-sm font-bold uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
+          'p-2 bg-[#93b5c6] border-[1px] relative top-[-150px] w-[125px] rounded-[2px] text-black text-sm uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
         )
     }
   }, [setClassName, id, name])
 
-  console.log(className)
   return (
     <div>
       <button

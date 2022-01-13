@@ -14,10 +14,10 @@ function Layout({ children }: LayoutProps) {
 
 Layout.Header = ({ children }: LayoutHeaderProps) => <div>{children}</div>
 Layout.Main = ({ children }: LayoutMainProps) => (
-  <main className='w-full bg-white'>{children}</main>
+  <main className='w-full bg-[#ffedda]'>{children}</main>
 )
 Layout.Aside = ({ children }: LayoutAsideProps) => (
-  <aside className='bg-primary w-28 flex flex-col items-center min-h-screen'>
+  <aside className='bg-[#ff5c58] w-80 flex flex-col items-center min-h-screen'>
     {children}
   </aside>
 )
