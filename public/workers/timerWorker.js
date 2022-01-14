@@ -3,7 +3,6 @@ onmessage = async (e) => {
     if (e.data.msg === 'startTimer') {
       const id = await tic(e.data.timeElapsed, e.data.delay)
       postMessage(id)
-      console.log('id', id)
     }
     // if (e.data.msg === 'stopTimer') {
     //   //   tic(e.data.timeElapsed, e.data.delay)

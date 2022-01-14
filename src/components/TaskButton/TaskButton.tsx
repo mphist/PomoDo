@@ -1,5 +1,9 @@
-import { useContext } from 'react'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useContext, useEffect, useState } from 'react'
 import { TaskContext } from '../../contexts/TaskContext'
+import { WebWorkerContext } from '../../contexts/WebWorkerContext'
+import getSavedTasks from '../../lib/getSavedTasks'
 
 export type TaskButtonProps = {
   id?: string
@@ -7,10 +11,14 @@ export type TaskButtonProps = {
 }
 
 function TaskButton({ id, name }: TaskButtonProps) {
-  const { setToggleCreate, setToggleTaskView, setTaskId } =
+  const { setToggleCreate, setToggleTaskView, setTaskId, task, taskId } =
     useContext(TaskContext)
+  const timerWorker = useContext(WebWorkerContext)
+  const [showSubtasks, setShowSubtasks] = useState(false)
+  const tasks = task && Object.keys(task).length > 0 ? task : getSavedTasks()
+  const subtasks = tasks?.[id!].subtask
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     if (name === 'New Task') {
       setToggleCreate!(true)
       setToggleTaskView!(false)
@@ -18,19 +26,26 @@ function TaskButton({ id, name }: TaskButtonProps) {
       setToggleCreate!(false)
       setToggleTaskView!(true)
       setTaskId!(id!)
+      setShowSubtasks(!showSubtasks)
     }
   }
 
   return (
     <li
-      className='mt-3 w-20 bg-tomato text-center text-white text-[12px] font-bold py-1 px-2 
-    tracking-wide rounded-md cursor-pointer hover:brightness-95 overflow-hidden whitespace-nowrap text-ellipsis'
-      style={{
-        background: `${name === 'New Task' && 'var(--color-bg-burgundy'}`,
-      }}
+      id={id}
+      className='border-[#000] border-[2px] mt-3 mx-auto w-60 bg-[#868e96] text-black text-[12px] font-bold py-3 px-2 
+    tracking-wide cursor-pointer hover:brightness-95 overflow-hidden whitespace-nowrap text-ellipsis'
       onClick={handleClick}
     >
-      {name}
+      <FontAwesomeIcon icon={faChevronRight} style={{ color: 'black' }} />
+      <span className='ml-2'>{name}</span>
+      <ul className='subtasks ml-7'>
+        {showSubtasks &&
+          subtasks &&
+          Object.entries(subtasks).map((subtask, key) => (
+            <li key={key}>{subtask[1].name}</li>
+          ))}
+      </ul>
     </li>
   )
 }

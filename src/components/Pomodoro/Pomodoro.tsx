@@ -14,7 +14,7 @@ export type PomodoroProps = {
 }
 
 function Pomodoro({ id }: PomodoroProps) {
-  const { task, setTask } = useContext(TaskContext)
+  const { task, taskId, setTask } = useContext(TaskContext)
   const audio = useContext(SoundContext)
   const local = localStorage.getItem('task')
   const savedTasks: TaskContextType = local && JSON.parse(local)
@@ -30,6 +30,52 @@ function Pomodoro({ id }: PomodoroProps) {
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>()
   const [done, setDone] = useState(false)
   const timerWorker = useContext(WebWorkerContext)
+
+  const checkId = (el: HTMLElement | null | undefined) => {
+    if (el && el.id === taskId) return true
+    return false
+  }
+
+  const terminateWorker = (isCurrentId: boolean) => {
+    if (!isCurrentId) {
+      timerWorker?.terminate()
+    }
+  }
+
+  const clickEventListener = (e: MouseEvent) => {
+    const el = e.target as HTMLElement
+    if (el.tagName === 'BUTTON') {
+      if (el.id === 'modalYes') {
+        terminateWorker(false)
+      }
+      return
+    }
+    if (el.tagName === 'LI') {
+      if (!el.id) {
+        const li = el.parentElement?.parentElement
+        if (li && li.tagName === 'LI') {
+          terminateWorker(checkId(li))
+        }
+      } else {
+        terminateWorker(checkId(el))
+      }
+    } else if (el.tagName === 'path') {
+      const li = el.parentElement?.parentElement
+      if (li && li.tagName === 'LI') {
+        terminateWorker(checkId(li))
+      }
+    } else {
+      const li = el.parentElement
+      if (li && li.tagName === 'LI') {
+        terminateWorker(checkId(li))
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('click', clickEventListener)
+    return () => window.removeEventListener('click', clickEventListener)
+  })
 
   useEffect(() => {
     if (task && task[id]) {
@@ -99,22 +145,12 @@ function Pomodoro({ id }: PomodoroProps) {
         }
       }
     } else {
-      // if (timerWorker) {
-      //   timerWorker.postMessage({
-      //     msg: 'startTimer',
-      //   })
-      //   console.log('changed tab')
-      //   timerWorker.onmessage = (e) => {
-      //     console.log('did send message?', e)
-      //     if (e && e.data) {
-      //       console.log('clearing timeout', e.data)
-      //       clearTimeout(e.data)
-      //     }
-      //   }
-      // }
-      if (timeoutId) {
-        console.log('timeout id', timeoutId)
-        clearTimeout(timeoutId)
+      if (timerWorker) {
+        timerWorker.onmessage = (e) => {
+          if (e && e.data) {
+            clearTimeout(e.data)
+          }
+        }
       }
     }
 
@@ -131,7 +167,6 @@ function Pomodoro({ id }: PomodoroProps) {
   }, [timer])
 
   useEffect(() => {
-    console.log('resetting time')
     resetTime()
   }, [resetTime])
 
@@ -152,7 +187,7 @@ function Pomodoro({ id }: PomodoroProps) {
       <TimerButton
         doneState={{ done, setDone }}
         activeTimer={activeTimer}
-        setActiveTimer={setActiveTimer}
+        setActiveTimer={setActiveTimer!}
         resetTime={resetTime}
         audio={audio}
       />

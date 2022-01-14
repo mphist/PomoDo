@@ -20,8 +20,6 @@ CircularBarProps) {
     return Number(((timeElapsed / minutes) * 100).toFixed(2))
   }
 
-  console.log(minutes)
-
   useEffect(() => {
     switch (minutes / 60) {
       case 25:
@@ -34,7 +32,7 @@ CircularBarProps) {
         setColor('#97bfb4')
         break
     }
-  })
+  }, [setColor, minutes])
 
   return (
     <div className='relative'>

@@ -68,6 +68,7 @@ function Modal({ state: { show, setShow }, id, name, time }: ModalProps) {
         </div>
         <div className='flex h-[30%] w-full justify-between'>
           <button
+            id='modalYes'
             className='w-[50%] bg-tomato text-white rounded-bl-md py-2 tracking-wide hover:brightness-95'
             onClick={() => handleClick(true)}
           >

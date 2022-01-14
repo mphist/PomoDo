@@ -17,7 +17,7 @@ Layout.Main = ({ children }: LayoutMainProps) => (
   <main className='w-full bg-[#ffedda]'>{children}</main>
 )
 Layout.Aside = ({ children }: LayoutAsideProps) => (
-  <aside className='bg-[#ff5c58] w-80 flex flex-col items-center min-h-screen'>
+  <aside className='bg-[#ff5c58] w-80 flex flex-col min-h-screen'>
     {children}
   </aside>
 )

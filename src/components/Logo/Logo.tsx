@@ -11,7 +11,7 @@ function Logo({}: LogoProps) {
   }
   return (
     <div
-      className='text-2xl font-logo text-ivory mt-2 tracking-wide cursor-pointer'
+      className='text-2xl text-center text-ivory mt-2 tracking-wide cursor-pointer'
       onClick={handleLogoClick}
     >
       PomoDo
