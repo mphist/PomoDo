@@ -184,9 +184,9 @@ function Pomodoro({ id }: PomodoroProps) {
         minutes={minutes}
         viewPortX={viewPortX}
       /> */}
-      {savedTasks && (
+      {savedTasks && savedTasks[id] && (
         <h1 className='text-3xl mb-10 text-[#343a40]'>
-          {capitalizeFirstLetter(savedTasks[id].timer.mode)}
+          {capitalizeFirstLetter(savedTasks[id]?.timer?.mode)}
         </h1>
       )}
       <CircularBar timeElapsed={timeElapsed} minutes={minutes} />

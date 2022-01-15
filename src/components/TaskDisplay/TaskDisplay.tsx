@@ -71,9 +71,14 @@ function TaskDisplay({ id }: TaskDisplayProps) {
       <h1 className='w-72 mt-[-100px] text-2xl text-center mx-auto border-b-[1px]'>
         Today's Tasks
       </h1>
-      <h2 className='w-72 text-xl text-[#ff5c58] rounded-md p-2 mx-auto my-0'>
-        {savedTasks?.[id]?.name || task![id]?.name}
-      </h2>
+      <div className='flex w-72 mx-auto items-center'>
+        <h2 className='w-72 text-xl text-[#ff5c58] rounded-md p-2 mx-auto my-0'>
+          {savedTasks?.[id]?.name || task![id]?.name}
+        </h2>
+        <button className='' onClick={handleRemoveTask}>
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
+      </div>
       <div className='subtaskList'>
         <ul>
           {subtasks &&
@@ -103,9 +108,6 @@ function TaskDisplay({ id }: TaskDisplayProps) {
       >
         DONE
       </button> */}
-      <button className='relative top-[-135px] ml-60'>
-        <FontAwesomeIcon icon={faTimes} />
-      </button>
     </div>
   )
 }
