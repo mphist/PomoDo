@@ -52,7 +52,7 @@ function InputController({
         ref={ref}
       />
       <button
-        className='bg-burgundy tracking-wide font-bold text-white p-2 hover:brightness-95'
+        className='bg-[#93b5c6] tracking-wide text-black p-2 hover:brightness-95'
         onClick={() => buttonClick(inputTaskName)}
       >
         Enter

@@ -14,6 +14,7 @@ export type ModalProps = {
 
 function Modal({ state: { show, setShow }, id, name, time }: ModalProps) {
   const [changeMode, setChangeMode] = useState(false)
+  const [taskChanged, setTaskChanged] = useState(false)
   const [message, setMessage] = useState('')
   const { task, setTask } = useContext(TaskContext)
   const savedTasks = getSavedTasks()
@@ -30,10 +31,13 @@ function Modal({ state: { show, setShow }, id, name, time }: ModalProps) {
       setMessage('Would you like to end your break early?')
     }
     // save storage localStorage
-    if (task && Object.keys(task).length > 0) {
-      localStorage.setItem('task', JSON.stringify(task))
-    } else if (savedTasks) {
-      localStorage.setItem('task', JSON.stringify(savedTasks))
+    if (taskChanged) {
+      if (task && Object.keys(task).length > 0) {
+        localStorage.setItem('task', JSON.stringify(task))
+        setTaskChanged(false)
+      } else if (savedTasks) {
+        localStorage.setItem('task', JSON.stringify(savedTasks))
+      }
     }
   }, [task, setMessage, id, name, savedTasks])
 
@@ -49,6 +53,7 @@ function Modal({ state: { show, setShow }, id, name, time }: ModalProps) {
           },
         },
       })
+      setTaskChanged(true)
       setChangeMode(false)
     }
   }, [changeMode])

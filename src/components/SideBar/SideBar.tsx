@@ -8,7 +8,7 @@ import TaskButton from '../TaskButton/TaskButton'
 export type SideBarProps = {}
 
 function SideBar({}: SideBarProps) {
-  const { task } = useContext(TaskContext)
+  const { task, setToggleCreate, setToggleTaskView } = useContext(TaskContext)
   const [savedTasks, setSavedTasks] = useState<[string, Task][] | null>(null)
   const local = localStorage.getItem('task')
   useEffect(() => {
@@ -19,16 +19,24 @@ function SideBar({}: SideBarProps) {
     }
   }, [setSavedTasks, local])
 
-  const tasks =
-    task && Object.entries(task!).length > 0
-      ? Object.entries(task!)
-      : savedTasks
+  // const tasks =
+  //   task && Object.entries(task!).length > 0
+  //     ? Object.entries(task!)
+  //     : savedTasks
+
+  const tasks = savedTasks
 
   return (
     <div className='mt-32'>
       <ul className=''>
         {/* <TaskButton name='New Task' /> */}
-        <div className='px-6 flex items-center cursor-pointer w-max'>
+        <div
+          className='px-6 flex items-center cursor-pointer w-max'
+          onClick={() => {
+            setToggleCreate!(true)
+            setToggleTaskView!(false)
+          }}
+        >
           <FontAwesomeIcon icon={faPlus} />
           <span className='ml-3 text-lg'>New Task</span>
         </div>

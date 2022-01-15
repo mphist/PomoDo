@@ -37,7 +37,7 @@ function SubtaskList({ subtasks }: SubtaskListProps) {
           Object.entries(subtasks).map((subtask, key) => (
             <li
               key={key}
-              className='w-72 subtaskItem opacity-0 transition-effect my-2 bg-primary rounded-md text-white p-2 mx-auto '
+              className='w-72 subtaskItem opacity-0 transition-effect my-2 bg-[#97bfb4] text-black p-2 mx-auto '
             >
               <div className='flex break-all'>
                 <FontAwesomeIcon

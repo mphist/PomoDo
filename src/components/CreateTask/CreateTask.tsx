@@ -125,7 +125,7 @@ function CreateTask({}: CreateTaskProps) {
           <div className='subTaskForm my-4 text-center'>
             {!showSubtaskInputController && (
               <button
-                className='bg-burgundy text-white p-2 rounded-md text-sm'
+                className='bg-[#93b5c6] text-black p-2'
                 onClick={() => {
                   setSubtaskId(generateId())
                   setShowSubtaskInputController(true)
@@ -139,13 +139,13 @@ function CreateTask({}: CreateTaskProps) {
             )}
           </div>
         </div>
-        <h2 className='bg-tomato w-72 rounded-md text-center p-2 mx-auto my-0 text-white'>
+        <h2 className='bg-[#ff5c58] w-72 text-center p-2 mx-auto my-0 text-black'>
           {localTask?.[uniqueId]?.name}
         </h2>
         <SubtaskList subtasks={localTask?.[uniqueId]?.subtask} />
       </section>
       <button
-        className='button-style createBtn opacity-0 transition-effect flex mx-auto'
+        className='bg-[#93b5c6] text-black p-2 createBtn opacity-0 transition-effect flex mx-auto'
         onClick={handleCreateClick}
       >
         Create

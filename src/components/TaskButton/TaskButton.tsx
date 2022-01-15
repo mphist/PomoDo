@@ -1,8 +1,7 @@
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { TaskContext } from '../../contexts/TaskContext'
-import { WebWorkerContext } from '../../contexts/WebWorkerContext'
 import getSavedTasks from '../../lib/getSavedTasks'
 
 export type TaskButtonProps = {
@@ -13,10 +12,9 @@ export type TaskButtonProps = {
 function TaskButton({ id, name }: TaskButtonProps) {
   const { setToggleCreate, setToggleTaskView, setTaskId, task, taskId } =
     useContext(TaskContext)
-  const timerWorker = useContext(WebWorkerContext)
   const [showSubtasks, setShowSubtasks] = useState(false)
   const tasks = task && Object.keys(task).length > 0 ? task : getSavedTasks()
-  const subtasks = tasks?.[id!].subtask
+  const subtasks = tasks?.[id!]?.subtask
 
   const handleClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     if (name === 'New Task') {
