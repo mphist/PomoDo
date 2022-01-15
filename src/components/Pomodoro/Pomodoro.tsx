@@ -85,7 +85,13 @@ function Pomodoro({ id }: PomodoroProps) {
     }
   }, [task, savedTasks, id, setTimer])
 
+  const tempTime = new Date(1000 * timeRemaining).toISOString()
+  const titleTime = tempTime.substring(
+    tempTime.length - 10,
+    tempTime.length - 10 + 5
+  )
   useEffect(() => {
+    document.title = titleTime + " PomoDo - Let's Focus!"
     if (activeTimer) {
       if (timeElapsed < timer * 60 - 1) {
         if (timerWorker) {
@@ -148,6 +154,7 @@ function Pomodoro({ id }: PomodoroProps) {
       if (timerWorker) {
         timerWorker.onmessage = (e) => {
           if (e && e.data) {
+            timeoutId && clearTimeout(timeoutId)
             clearTimeout(e.data)
           }
         }
@@ -168,7 +175,7 @@ function Pomodoro({ id }: PomodoroProps) {
 
   useEffect(() => {
     resetTime()
-  }, [resetTime])
+  }, [resetTime, id])
 
   return (
     <div className='mt-36 flex flex-col items-center'>
