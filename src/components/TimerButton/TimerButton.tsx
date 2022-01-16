@@ -24,7 +24,7 @@ function TimerButton({
     <div className='relative top-[-340px]'>
       {!done && (
         <button
-          className='bg-[#ff5c58] border-[1px] w-10 mx-1 text-[#000] tracking-wide hover:brightness-95 mt-14 rounded-lg pt-2 pb-1 px-2'
+          className='bg-[#ff5c58] border-[2px] w-10 mx-1 text-[#000] tracking-wide hover:brightness-95 mt-14 rounded-lg pt-2 pb-1 px-2'
           onClick={() => {
             // if (audio) {
             //   audio.pause()
@@ -41,7 +41,7 @@ function TimerButton({
         </button>
       )}
       <button
-        className='bg-[#93b5c6] border-[1px] w-10 mx-1 text-[#000] tracking-wide hover:brightness-95 mt-14 rounded-lg pt-2 pb-1 px-2'
+        className='bg-[#93b5c6] border-[2px] w-10 mx-1 text-[#000] tracking-wide hover:brightness-95 mt-14 rounded-lg pt-2 pb-1 px-2'
         onClick={() => {
           resetTime()
           // setDone(false)

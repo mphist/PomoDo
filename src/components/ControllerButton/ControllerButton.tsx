@@ -20,17 +20,17 @@ function ControllerButton({ name, time, id }: ControllerButtonProps) {
     switch (name) {
       case 'Focus':
         setClassName(
-          'p-2 bg-[#ff5c58] border-[1px] relative top-[-150px] w-[125px] rounded-[2px] text-black text-sm uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
+          'p-2 bg-[#ff5c58] border-[2px] relative top-[-150px] w-[125px] rounded-[2px] text-black text-sm uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
         )
         break
       case 'Short Break':
         setClassName(
-          'p-2 bg-[#97bfb4] border-[1px] relative top-[-150px] w-[125px] rounded-[2px] text-black text-sm uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
+          'p-2 bg-[#97bfb4] border-[2px] relative top-[-150px] w-[125px] rounded-[2px] text-black text-sm uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
         )
         break
       case 'Long Break':
         setClassName(
-          'p-2 bg-[#93b5c6] border-[1px] relative top-[-150px] w-[125px] rounded-[2px] text-black text-sm uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
+          'p-2 bg-[#93b5c6] border-[2px] relative top-[-150px] w-[125px] rounded-[2px] text-black text-sm uppercase cursor-pointer shadow-sm shadow-[rgba(0,0,0,0.17)] hover:brightness-95'
         )
     }
   }, [setClassName, id, name])

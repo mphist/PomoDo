@@ -40,7 +40,7 @@ function SideBar({}: SideBarProps) {
           <FontAwesomeIcon icon={faPlus} />
           <span className='ml-3 text-lg'>New Task</span>
         </div>
-        <div className='border-b-[1px] mt-4'></div>
+        <div className='border-b-[2px] mt-4'></div>
         <div className='text-center mt-4 text-lg'>Tasks</div>
         {tasks?.map((task, key) => (
           <TaskButton key={key} id={task[0]} name={task[1].name} />
