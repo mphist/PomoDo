@@ -9,6 +9,6 @@ export const SoundContext = createContext<HTMLAudioElement | null>(null)
 export const SoundContextProvider = ({
   children,
 }: SoundContextProviderProps) => {
-  const sound = new Audio('/assets/sound/musicbox.mp3')
+  const sound = new Audio('/assets/sound/clear_bell.mp3')
   return <SoundContext.Provider value={sound}>{children}</SoundContext.Provider>
 }
